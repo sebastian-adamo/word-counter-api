@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Upload File</title>
+
+    <!-- jQuery -->
+    <script
+            src="https://code.jquery.com/jquery-1.12.4.min.js"
+            integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="
+            crossorigin="anonymous">
+    </script>
+</head>
+<body>
+    <form action="/upload" method="post" enctype="multipart/form-data">
+        <input type="file" name="file" accept="text/plain">
+        <input id="upload" type="submit" value="Upload File">
+    </form>
+</body>
+<script>
+    $(document).ready(function(){
+        $('input[type="file"]').change(function(e){
+            var fileType = e.target.files[0].type;
+
+            $.ajax({
+                url: "/check-file?extension=" + fileType,
+                success: function (result) {
+                    if (result === false) {
+                        $('#upload').prop('disabled', true);
+                        alert("Please select a .txt file.")
+                    }
+                    else {
+                        $('#upload').prop('disabled', false);
+                    }
+                }
+            })
+        });
+    });
+</script>
+</html>

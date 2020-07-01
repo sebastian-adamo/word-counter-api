@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Results</title>
+</head>
+<body>
+<ul>
+    <li th:text="'Word count = ' + ${wordCount}"></li>
+    <li th:text="'Average Word Length = ' + ${averageWordLength}"></li>
+    <li th:each="wordLength: ${wordLengths}" th:text="'Number of Words of Length ' + ${wordLength.getKey()} + ' is ' + ${wordLength.getValue()}"></li>
+    <li th:each="frequent: ${mostFrequent}">
+        <span th:text="'The Most Frequently Occuring Word Length is ' + ${frequent.getKey()} + ', for Word Lengths of'"></span>
+        <span th:each="value, iterStat: ${frequent.getValue()}" th:text="${iterStat.last}? ' ' + ${value} : ' ' + ${value} + ' &'"></span>
+    </li>
+</ul>
+</body>
+</html>
